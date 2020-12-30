@@ -14,20 +14,20 @@ class Solution(object):
         length = len(ls)
         
         for start in range(length):
+            flag = True
             end = start + 1
             collector = {}
             collector[ls[start]] = collector.get(ls[start], 0) + 1
             
-            while end < length and ls[end] != ls[start]:
+            while end < length and flag:
+                if ls[end] in collector.keys():
+                    flag = False
+                    break
                 collector[ls[end]] = collector.get(ls[end], 0) + 1
-                for times in collector.values():
-                    if times > 1:
-                        end -= 1
-                        break
                 end += 1
             
-            count = end - start + 1
+            count = end - start
             count_max = count if count > count_max else count_max
         
         return count_max
-        
+      
